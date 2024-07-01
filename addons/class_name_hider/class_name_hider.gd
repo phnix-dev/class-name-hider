@@ -60,7 +60,7 @@ func _create_autoload() -> void:
 	file.close()
 	
 	print_verbose(profile)
-	print("[Global Script Access] Autoloads created!")
+	print("[Global Script Access] Profile created!")
 
 
 func get_all_scripts(path: String) -> Array[String]:
