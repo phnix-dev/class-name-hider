@@ -26,7 +26,12 @@ The second option is to use the `class_name` keyword. This lets you access the s
 4. By default, the addon hides all user-created scripts with the `class_name` keyword. To keep custom scripts in the `Create New Node` tab, add the folders **name** containing the scripts to the `class_name_hider/excluded_folders` settings.
 5. Click on the button `Project > Tools > Generate class_name Hider Profile`.
 6. Add the generated profile to the `Editor > Manage Editor Features...`, click on the `Import` button and select the `hider_script.profile`. Click on `Make current` if necessary.
-7. The class hidden from the editor is in the `disabled_classes` array of the profile.
+
+The class that is hidden from the editor is in the `disabled_classes' array of the profile.
+
+If you have any trouble:
+- After adding excluded folders the tools may not be actualised, if the profile file still has excluded folder's script, try generating it again.
+- After generating a profile, try removing all profiles from the Manage Editor Features window and re-importing the profile.
 
 ## License
 
