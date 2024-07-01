@@ -4,13 +4,13 @@ This addon gives you access to global scripts using the `class_name` keyword, wh
 
 ## Why
 
-It`s not very useful on its own, but it helps with this problem:
+It is not very useful on its own, but it helps with this problem:
 
 There are two ways to access the type of another script in one script.
 
 The first is to `preload` the script into a constant, which makes you write `preload` a lot and can break because the path is hardcoded.
 
-The second option is to use the `class_name` keyword. This lets you access the script type without preloading it. However, it makes the `Create New Node` tab cluttered, slows it down, and if the script only works in a specific scene, it won't load the scene when added with the `Create New Node` tab. Instead, it will add a new node with only the script attached to it.
+The second option is to use the `class_name` keyword. This lets you access the script type without preloading it. However, it makes the `Create New Node` tab cluttered, slows it down, and if the script only works in a specific scene, it will not load the scene when added with the `Create New Node` tab. Instead, it will add a new node with only the script attached to it.
 
 ## Note
 
@@ -26,7 +26,7 @@ The second option is to use the `class_name` keyword. This lets you access the s
 4. By default, the addon hides all user-created scripts with the `class_name` keyword. To keep custom scripts in the `Create New Node` tab, add the folders **name** containing the scripts to the `class_name_hider/excluded_folders` settings.
 5. Click on the button `Project > Tools > Generate class_name Hider Profile`.
 6. Add the generated profile to the `Editor > Manage Editor Features...`, click on the `Import` button and select the `hider_script.profile`. Click on `Make current` if necessary.
-7. The class hidden from the editor is in the `disabled_classes' array of the profile.
+7. The class hidden from the editor is in the `disabled_classes` array of the profile.
 
 ## License
 
