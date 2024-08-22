@@ -1,7 +1,8 @@
 {
 	"disabled_classes": [
 		"Enemy",
-		"Level"
+		"Level",
+		"Player"
 	],
 	"disabled_editors": [],
 	"disabled_features": [],

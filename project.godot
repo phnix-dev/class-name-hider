@@ -10,7 +10,7 @@ config_version=5
 
 [addons]
 
-class_name_hider/excluded_folders=PackedStringArray("addons", "player")
+class_name_hider/excluded_folders=PackedStringArray()
 
 [application]
 

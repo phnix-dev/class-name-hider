@@ -26,7 +26,7 @@ func _enter_tree() -> void:
 			"type": TYPE_PACKED_STRING_ARRAY,
 		}
 		
-		var arr: PackedStringArray = ["addons"]
+		var arr: PackedStringArray = []
 		
 		ProjectSettings.set_setting(plugin_path_folders, arr)
 		ProjectSettings.add_property_info(property_info)
@@ -39,18 +39,17 @@ func _exit_tree() -> void:
 
 
 func _create_autoload() -> void:
-	var profile: String
-	var dir_array := get_all_scripts(PATH_RES)
-	
 	excluded = ProjectSettings.get_setting(plugin_path_folders) as PackedStringArray
-	excluded.append("class_name_hider")
+	excluded.append_array(["res://.godot", "res://addons"])
+
+	var profile: String = ""
+	var dir_array := get_all_scripts(PATH_RES)
 	
 	for dir in dir_array:
 		var script_class_name = dir.get_file().get_slice(".", 0).to_pascal_case()
 		var script := load(dir) as Script
 		
-		if script.new() is Node:
-			profile += "\t\t\"%s\",\n" % script_class_name
+		profile += "\t\t\"%s\",\n" % script_class_name
 	
 	profile = profile.trim_suffix(",\n")
 	profile = PROFILE % profile
@@ -65,6 +64,7 @@ func _create_autoload() -> void:
 
 func get_all_scripts(path: String) -> Array[String]:
 	var array: Array[String] = []
+	var current_path: String
 	
 	var dir = DirAccess.open(path)
 	dir.include_hidden = false
@@ -76,13 +76,15 @@ func get_all_scripts(path: String) -> Array[String]:
 		var file_name = dir.get_next()
 		
 		while file_name != "":
-			if dir.current_is_dir() and not is_excluded(file_name):
-				var subfolder_array = get_all_scripts(path.path_join(file_name))
+			current_path = path.path_join(file_name)
+			
+			if dir.current_is_dir() and not is_excluded(current_path):
+				var subfolder_array = get_all_scripts(current_path)
 				
 				array.append_array(subfolder_array)
 				
 			elif file_name.get_extension() == "gd":
-				array.append(path.path_join(file_name))
+				array.append(current_path)
 				
 			file_name = dir.get_next()
 	else:
@@ -93,9 +95,11 @@ func get_all_scripts(path: String) -> Array[String]:
 	return array
 
 
-func is_excluded(name: String) -> bool:
+func is_excluded(path: String) -> bool:
 	for dir in excluded:
-		if dir == name:
+		dir = dir.trim_suffix("/")
+		
+		if dir == path:
 			return true
 	
 	return false
